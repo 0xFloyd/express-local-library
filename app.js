@@ -10,7 +10,7 @@ var catalogRouter = require('./routes/catalog');  //Import routes for "catalog" 
 var compression = require('compression');
 var helmet = require('helmet');
 
-var app = express();    //  create app object 
+var app = express();    //  create express app  
 
 
 //Set up mongoose connection
@@ -34,7 +34,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));  //  static middleware to serve static files 
+app.use(express.static(path.join(__dirname, 'public')));  //  static middleware to serve static files, like css, images, javascript files  
 
 
 //   adds route-handling code to the request handling chain. The imported code will define particular routes for the different parts of the site
@@ -50,7 +50,9 @@ app.use(function(req, res, next) {
   next(createError(404));
 }); 
 
-// error handler
+
+
+// error handler. errors handeled at the end, so any next's resolve here 
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
